@@ -38,6 +38,13 @@ public class Program
 
     }
 
+    // todo: improve performance of this algorithm 
+    /// <summary>
+    /// Inorder traversal is an algorithm where first the left node is traversed followed by the root node and
+    /// then at last the right node 
+    /// </summary>
+    /// <param name="root"></param>
+    /// <returns></returns>
     public static IList<int> InorderTraversal(TreeNode root)
     {
         if (root == null)
