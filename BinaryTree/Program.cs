@@ -5,6 +5,32 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        SolveSameTree();
+    }
+
+    public static void SolveSameTree()
+    {
+        TreeNode root1 = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+        TreeNode root2 = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+        
+        var result1 = TreeNode.IsSameTree(root1, root2);
+        Console.WriteLine($"First: {result1}");
+
+        TreeNode root3 = new TreeNode(1, new TreeNode(2), null);
+        TreeNode root4 = new TreeNode(1, null, new TreeNode(3));
+
+        var result2 = TreeNode.IsSameTree(root3, root4);
+        Console.WriteLine($"Second: {result2}");
+        
+        TreeNode root5 = new TreeNode(1, new TreeNode(2), new TreeNode(1));
+        TreeNode root6 = new TreeNode(1, new TreeNode(1), new TreeNode(2));
+
+        var result3 = TreeNode.IsSameTree(root5, root6);
+        Console.WriteLine($"Third: {result3}");
+    }
+    
+    public static void SolveInorderTraversal()
+    {
         TreeNode node1 = new TreeNode(1, null, new TreeNode(2, new TreeNode(3)));
 
         var result1 = InorderTraversal(node1);
@@ -66,22 +92,5 @@ public class Program
         }
 
         return [..left, root.val, ..right];
-    }
-    
-}
-
-
-
-public class TreeNode
-{
-    public int val;
-    public TreeNode left;
-    public TreeNode right; 
-    
-    public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) 
-    { 
-        this.val = val;
-        this.left = left;
-        this.right = right;
     }
 }

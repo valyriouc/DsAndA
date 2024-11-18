@@ -12,6 +12,11 @@ pub struct TreeNode {
 
 fn main() {
 
+    let test = Rc::new(RefCell::new(TreeNode { val: 5, left: None, right: None }));
+
+    let node = test.deref();
+
+    println!("{}", (*node.borrow()).val);
 }
 
 
@@ -21,24 +26,26 @@ impl Solution {
     pub fn is_valid_bst(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
         match root {
             Some(node) => {
-                let n = node.clone();
-                match (n.into_inner(), n.right) {
+                let n = node.deref();
+                let l = (*n.borrow()).left;
+                let r = *n.borrow().right;
+                match (l, r) {
                     (Some(left), Some(right)) => {
                         let left_val = left.borrow();
                         let right_val = right.borrow();
 
-                        return ((*left_val.val) < (*n.val)) < (*right_val.val)
+                        return ((*left_val.borrow().val) < (*n.borrow().val)) < (*right_val.borrow().val)
                             && Solution::is_valid_bst(left.clone())
                             && Solution::is_valid_bst(right.clone());
                     }
                     (None, Some(right)) => {
                         let right_val = right.borrow();
 
-                        return (*n.val < *right_val.val) && Solution::is_valid_bst(right);
+                        return ((*n.borrow()).val < *right_val.borrow().val) && Solution::is_valid_bst(right);
                     }
                     (Some(left), None) => {
                         let left_val = left.borrow();
-                        return (*left_val.val < *n.val) && Solution::is_valid_bst(left);
+                        return (*left_val.borrow().val < *n.borrow().val) && Solution::is_valid_bst(left);
                     }
                     (None, None) => {
                         return true;
